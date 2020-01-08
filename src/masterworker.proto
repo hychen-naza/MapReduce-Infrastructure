@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package masterworker;
+
+service WorkerService {
+	rpc DoMap(ShardInfo) returns (InterimInfo) {}
+	rpc DoReduce(InterimInfo) returns (OutputInfo) {}
+}
+
+message ShardComponent {
+	string filename = 1;
+	int32 start = 2;
+	int32 end = 3;
+}
+
+// master sends shard info to workers
+message ShardInfo {
+	int32 id = 1;
+	int32 num_interim_files = 2;
+	repeated ShardComponent components = 3;
+}
+
+
+message InterimFile {
+	string filename = 1;
+}
+
+// worker writes key value list to interim file after mapping is done
+message InterimInfo {
+	repeated InterimFile components = 1;
+	string worker_addr = 2; // needed by master's worker pool management
+	int32 id = 3;
+}
+
+
+message OutputInfo {
+	string filename = 1;
+	string worker_addr = 2;
+	int32 id = 3;
+}

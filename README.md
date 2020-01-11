@@ -28,18 +28,7 @@ It's a project of Advaced OS (6210) course from Gatech
 12. make
 13. sudo make install 
 
-## Usage
 
-```
-```
-
-## Contributing
-
-PRs accepted.
-
-## License
-
-MIT © Richard McRichface
 
 
 
